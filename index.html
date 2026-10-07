@@ -873,10 +873,51 @@
     <li><strong>Kotlin format pattern:</strong> <code>SimpleDateFormat("dd/MM/yyyy, h:mm a", Locale("en", "IN"))</code> for older dates</li>
   </ul>
 
-  <!-- ── 10. Summary Decision Table ── -->
+  <!-- ── 10. "समय समाप्त" Expired Tag Logic ── -->
+  <h3>
+    <span class="material-icons-outlined">event_busy</span>
+    10. "समय समाप्त" Tag — Expired Notification Logic
+  </h3>
+  <p>
+    The <span class="lc-badge lc-expired">समय समाप्त</span> tag appears when the <strong>purpose</strong> of a notification has expired —
+    i.e. the <code>event_deadline</code> date has passed and the action is no longer useful.
+  </p>
+
+  <div style="background: #FAF9FC; border: 1px solid #E8E5ED; border-radius: 12px; padding: 20px; margin: 16px 0;">
+    <div style="font-size: 13px; font-weight: 700; color: #4A1535; margin-bottom: 12px;">Example</div>
+    <div style="font-size: 13px; color: #5C5570; line-height: 1.8;">
+      A CSP receives: <strong>"3 अक्टूबर तक नेट-बॉक्स वापस करें — कैरी फी बचाने के लिए"</strong><br>
+      This notification has <code>event_deadline = 2026-10-03</code>.<br><br>
+      <span class="lc-badge lc-active">Before 3 Oct</span> &nbsp;→&nbsp; Notification shows normally (no tag). The CSP can still act — return the netbox to avoid carry fee.<br><br>
+      <span class="lc-badge lc-expired">After 3 Oct</span> &nbsp;→&nbsp; The deadline has passed. Carry fee has already been deducted. The notification now shows the
+      <span class="expired-tag">समय समाप्त</span> tag, and the card is dimmed (opacity 0.65) to signal it's no longer actionable.
+    </div>
+  </div>
+
+  <h4 style="font-size: 13px; font-weight: 700; color: #161021; margin: 16px 0 8px;">When the tag appears</h4>
+  <ul>
+    <li>Client checks: <code>event_deadline</code> &lt; current date → show <span class="expired-tag">समय समाप्त</span> tag</li>
+    <li>The tag is a <strong>client-side computation</strong> — server sends <code>event_deadline</code>, client decides whether to show the tag</li>
+    <li>Comparison is <strong>date-only</strong> (not datetime) — if deadline is Oct 3, the tag appears from Oct 4 onwards</li>
+  </ul>
+
+  <h4 style="font-size: 13px; font-weight: 700; color: #161021; margin: 16px 0 8px;">Visual treatment</h4>
+  <ul>
+    <li><strong>Tag:</strong> <span class="expired-tag">समय समाप्त</span> — red text (#D92130) on light red background (#FDE8EA), positioned at trailing end of title row</li>
+    <li><strong>Card opacity:</strong> Dimmed to 0.65 — visually de-prioritizes the card vs active notifications</li>
+    <li><strong>Icon container:</strong> Background shifts to <code>#F5E8EA</code> (light red tint) instead of default <code>#F0EDF3</code></li>
+  </ul>
+
+  <h4 style="font-size: 13px; font-weight: 700; color: #161021; margin: 16px 0 8px;">What does NOT get the tag</h4>
+  <ul>
+    <li><span class="lc-badge lc-timeless">TIMELESS</span> notifications — no <code>event_deadline</code>, so they never expire (e.g. "नई पॉलिसी अपडेट", "₹150 कमीशन जमा हुआ")</li>
+    <li><span class="lc-badge lc-active">ACTIVE</span> notifications — <code>event_deadline</code> is still in the future, action is still possible</li>
+  </ul>
+
+  <!-- ── 11. Summary Decision Table ── -->
   <h3>
     <span class="material-icons-outlined">checklist</span>
-    10. Quick Decision Summary
+    11. Quick Decision Summary
   </h3>
   <table class="matrix-table">
     <thead>
