@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bell Notification UI Enhancement — Objective & Icon Reference</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F3F0F7;
+    color: #161021;
+    padding: 32px;
+  }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .page-subtitle { font-size: 14px; color: #5C5570; margin-bottom: 32px; }
+
+  /* ── Objective Section ── */
+  .objective-banner {
+    background: #4A1535;
+    color: #FAF9FC;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .objective-banner h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .objective-banner h2 .material-icons-outlined { font-size: 24px; color: #D9008D; }
+  .objective-banner p {
+    font-size: 14px; line-height: 1.7; color: rgba(250,249,252,0.85);
+    margin-bottom: 12px;
+  }
+  .objective-banner p:last-child { margin-bottom: 0; }
+  .objective-banner strong { color: #FAF9FC; }
+
+  /* ── Comparison Table ── */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0 0;
+  }
+  .compare-col {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .compare-col h3 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 12px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .compare-col.current h3 { color: #A7A1B2; }
+  .compare-col.enhanced h3 { color: #D9008D; }
+  .compare-col ul { list-style: none; padding: 0; }
+  .compare-col li {
+    font-size: 13px; line-height: 1.6; padding: 4px 0;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .compare-col li::before { font-size: 14px; min-width: 16px; }
+  .compare-col.current li::before { content: "~"; color: #A7A1B2; }
+  .compare-col.enhanced li::before { content: "+"; color: #D9008D; font-weight: 700; }
+
+  /* ── Gap cards ── */
+  .gaps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .gap-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid #D9008D;
+  }
+  .gap-card .gap-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #D9008D; margin-bottom: 4px;
+  }
+  .gap-card .gap-title { font-size: 14px; font-weight: 700; color: #161021; margin-bottom: 4px; }
+  .gap-card .gap-desc { font-size: 13px; color: #5C5570; line-height: 1.5; }
+
+  /* ── Phone Frame ── */
+  .preview-row {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .preview-col { text-align: center; width: 360px; }
+  .preview-label {
+    font-size: 13px; font-weight: 600; margin-bottom: 12px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 14px; border-radius: 20px;
+  }
+  .preview-label.before { background: #F5F3F7; color: #5C5570; }
+  .preview-label.after { background: #FFE5F6; color: #D9008D; }
+
+  .phone-frame {
+    width: 360px;
+    min-height: 640px;
+    background: #FAF9FC;
+    border-radius: 32px;
+    border: 2px solid #E8E5ED;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  .phone-header {
+    background: #4A1535;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 56px;
+  }
+  .phone-header .material-icons-outlined { color: #FAF9FC; font-size: 24px; }
+  .phone-header .title {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    color: #FAF9FC;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .phone-body {
+    padding: 12px 16px 24px;
+  }
+
+  /* ── Filter Chips ── */
+  .filter-chips {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0 12px;
+  }
+  .chip {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #D4D0DC;
+    color: #5C5570;
+    background: #fff;
+    white-space: nowrap;
+  }
+  .chip.active {
+    background: #161021;
+    color: #FAF9FC;
+    border-color: #161021;
+    font-weight: 600;
+  }
+
+  /* ── Notification Card ── */
+  .notif-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .notif-card.read-card {
+    background: #FFFFFF;
+  }
+  .notif-card.no-icon {
+    padding-left: 16px;
+  }
+
+  /* Icon container */
+  .notif-icon-wrap {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: #F0EDF3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .notif-icon-wrap .material-icons-outlined {
+    font-size: 20px;
+    color: #7B6F8E;
+  }
+  .notif-card.read-card .notif-icon-wrap .material-icons-outlined {
+    color: #A7A1B2;
+  }
+
+  .notif-content { flex: 1; min-width: 0; }
+
+  /* Title row: dot + title */
+  .notif-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+  .unread-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: #D9008D;
+    flex-shrink: 0;
+  }
+  .notif-title {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #161021;
+    line-height: 1.4;
+  }
+  .notif-card.read-card .notif-title {
+    font-weight: 500;
+    color: #3D3550;
+  }
+
+  /* Subtitle */
+  .notif-sub {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 12px;
+    color: #5C5570;
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+
+  /* Timestamp */
+  .notif-time {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 11px;
+    color: #A7A1B2;
+    margin-top: 4px;
+  }
+
+  /* Grouped chip */
+  .grouped-chip {
+    background: #FFE5F6;
+    color: #D9008D;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    min-width: fit-content;
+  }
+
+  /* ── Section Headers ── */
+  .section-hdr {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 14px; font-weight: 700; color: #161021;
+    padding: 10px 0 8px;
+    display: flex; justify-content: space-between;
+  }
+  .section-hdr .count { color: #5C5570; font-weight: 400; }
+
+  /* ── Section Titles ── */
+  .section-title {
+    font-size: 18px; font-weight: 700; margin: 40px 0 16px;
+    padding-bottom: 8px; border-bottom: 2px solid #4A1535;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .material-icons-outlined { font-size: 22px; color: #4A1535; }
+
+  /* ── Primary Mapping Grid ── */
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .icon-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid #E8E5ED;
+    transition: border-color 0.15s;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .icon-card:hover { border-color: #D9008D; }
+  .icon-card.recommended { border: 2px solid #D9008D; }
+  .icon-card.recommended .badge-rec {
+    display: inline-block;
+    background: #FFE5F6;
+    color: #D9008D;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .icon-box {
+    width: 48px; height: 48px; min-width: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: #F0EDF3;
+  }
+  .icon-box .material-icons-outlined { font-size: 26px; color: #7B6F8E; }
+
+  .icon-info { flex: 1; min-width: 0; overflow: hidden; }
+  .icon-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; flex-wrap: wrap; }
+  .icon-material { font-size: 12px; color: #7B6F8E; font-family: monospace; margin-bottom: 6px; word-break: break-all; }
+  .icon-desc { font-size: 13px; color: #5C5570; line-height: 1.4; }
+  .icon-hindi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 12px; color: #A7A1B2; margin-top: 4px; }
+
+  /* ── Alternative Icons Grid ── */
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin: 12px 0 24px;
+  }
+  .alt-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 8px;
+    text-align: center;
+    border: 1px solid #E8E5ED;
+    cursor: default;
+    transition: border-color 0.15s;
+  }
+  .alt-item:hover { border-color: #D9008D; }
+  .alt-item .material-icons-outlined { font-size: 32px; color: #4A1535; display: block; margin: 0 auto 8px; }
+  .alt-item .label { font-size: 10px; color: #5C5570; font-family: monospace; word-break: break-all; }
+
+  /* ── Show More Button ── */
+  .show-more-wrap {
+    padding: 8px 0 4px;
+    text-align: center;
+  }
+  .show-more-btn {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #D9008D;
+    background: #FFE5F6;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .show-more-btn:hover { background: #FFD6F0; }
+
+  .older-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 8px;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 12px;
+    color: #A7A1B2;
+  }
+  .older-divider::before,
+  .older-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #E8E5ED;
+  }
+
+  .proto-end-label {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 11px;
+    color: #A7A1B2;
+    text-align: center;
+    padding: 16px 12px 8px;
+    line-height: 1.5;
+  }
+
+  .proto-hint {
+    font-size: 12px;
+    color: #A7A1B2;
+    text-align: center;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .proto-empty {
+    text-align: center;
+    padding: 48px 20px;
+  }
+
+  /* Clickable chips */
+  .chip { cursor: pointer; transition: all 0.15s; user-select: none; }
+  .chip:hover:not(.active) { border-color: #9B93A8; }
+
+  /* Card tap animation */
+  .proto-card { cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+  .proto-card:active { transform: scale(0.98); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+  /* Smooth show/hide */
+  .proto-card, .show-more-wrap, #older-notifs, #empty-filter {
+    transition: opacity 0.2s, max-height 0.3s;
+  }
+  .proto-card.hidden-card {
+    display: none;
+  }
+
+  /* ── Expired tag ── */
+  .expired-tag {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #D92130;
+    background: #FDE8EA;
+    padding: 1px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .expired-card { opacity: 0.65; }
+  .expired-card .notif-icon-wrap { background: #F5E8EA; }
+
+  /* ── Logic Section ── */
+  .logic-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    border: 1px solid #E8E5ED;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .logic-section h2 {
+    font-size: 18px; font-weight: 700; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px; border-bottom: 2px solid #4A1535;
+  }
+  .logic-section h2 .material-icons-outlined { font-size: 22px; color: #4A1535; }
+  .logic-section h3 {
+    font-size: 15px; font-weight: 700; color: #161021; margin: 24px 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logic-section h3 .material-icons-outlined { font-size: 18px; color: #D9008D; }
+  .logic-section h3:first-of-type { margin-top: 0; }
+  .logic-section p, .logic-section li {
+    font-size: 13px; color: #5C5570; line-height: 1.7;
+  }
+  .logic-section ul { padding-left: 20px; margin: 8px 0; }
+  .logic-section li { margin-bottom: 4px; }
+  .logic-section code {
+    background: #F0EDF3; padding: 1px 6px; border-radius: 4px;
+    font-size: 12px; color: #4A1535;
+  }
+
+  /* Matrix table */
+  .matrix-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    font-size: 13px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #E8E5ED;
+  }
+  .matrix-table th {
+    background: #4A1535; color: #FAF9FC;
+    padding: 10px 14px; font-weight: 600; text-align: left;
+    font-size: 12px;
+  }
+  .matrix-table th:first-child { width: 120px; }
+  .matrix-table td {
+    padding: 10px 14px; border-bottom: 1px solid #E8E5ED;
+    vertical-align: top; line-height: 1.5;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table tr:nth-child(even) td { background: #FAF9FC; }
+  .matrix-table .cell-label {
+    font-weight: 600; color: #161021; display: block; margin-bottom: 2px;
+  }
+  .matrix-table .cell-desc { color: #5C5570; font-size: 12px; }
+
+  /* Flow diagram */
+  .flow-steps {
+    display: flex; gap: 0; align-items: stretch;
+    margin: 16px 0; flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1; min-width: 140px;
+    background: #FAF9FC; border: 1px solid #E8E5ED;
+    border-radius: 12px; padding: 14px 16px; text-align: center;
+    position: relative;
+  }
+  .flow-step .step-num {
+    font-size: 11px; font-weight: 700; color: #D9008D;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .flow-step .step-title { font-size: 13px; font-weight: 700; color: #161021; margin-bottom: 4px; }
+  .flow-step .step-desc { font-size: 11px; color: #5C5570; line-height: 1.5; }
+  .flow-arrow {
+    display: flex; align-items: center; padding: 0 4px;
+    color: #A7A1B2; font-size: 20px;
+  }
+
+  /* Lifecycle badges inline */
+  .lc-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 1px 8px; border-radius: 4px; vertical-align: middle;
+  }
+  .lc-active { background: #E8F5E9; color: #2E7D32; }
+  .lc-expired { background: #FDE8EA; color: #D92130; }
+  .lc-timeless { background: #E3F2FD; color: #1565C0; }
+
+  .divider { border: none; border-top: 1px solid #E8E5ED; margin: 32px 0; }
+
+  @media (max-width: 860px) {
+    body { padding: 16px; }
+    .icon-grid { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .phone-frame { width: 100%; min-width: 320px; }
+    .preview-row { gap: 24px; }
+    .gaps-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Bell Notification UI Enhancement</h1>
+<p class="page-subtitle">Wiom CSP App — Cross-Surface Attention Inbox (Attention Framework v1.3)</p>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- OBJECTIVE                                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="objective-banner">
+  <h2>
+    <span class="material-icons-outlined">flag</span>
+    Objective
+  </h2>
+  <p>
+    The Bell icon is a communication surface through which Wiom communicates important updates, actions,
+    and alerts to CSPs. It brings together signals from different parts of the CSP journey — such as
+    task failures, deduction warnings, quality drops, inventory alerts, and team messages — in one place.
+  </p>
+  <p>
+    Today, however, all notifications look almost identical. They are presented as <strong>plain text rows
+    with only a read/unread indicator</strong>. As a result, when a CSP has 15+ notifications, they need
+    to read each title to understand what requires their attention and why.
+  </p>
+
+  <h2 style="margin-top: 20px;">
+    <span class="material-icons-outlined">track_changes</span>
+    Goal
+  </h2>
+  <p>
+    Improve the Bell experience so that a CSP can <strong>quickly scan and triage notifications within
+    a few seconds</strong>, even before reading the text.
+  </p>
+  <p>We want to introduce three key improvements:</p>
+
+  <div style="margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px;">
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 4px;">1. Category-based icons</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Use <code style="background:rgba(255,255,255,0.15); padding:1px 6px; border-radius:4px; font-size:12px;">sourceClass</code>
+        to map each notification to a relevant visual icon, allowing CSPs to immediately distinguish
+        between categories such as deductions, task failures, quality alerts, inventory, etc.
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 4px;">2. Read-state filters</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Add filter chips — All / Unseen / Seen — so CSPs can quickly focus on the notifications
+        that need their attention.
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 4px;">3. Clearer unread/read hierarchy</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Create stronger visual differentiation between unread and read notifications, making priority
+        and pending attention immediately apparent.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; background: rgba(217,0,141,0.12); border-radius: 10px; padding: 16px 20px;">
+    <div style="font-size: 13px; font-weight: 700; color: #FAF9FC; margin-bottom: 8px;">Core UX Principle</div>
+    <p style="margin-bottom: 8px;">
+      The Bell should not just be a notification list; it should act as a <strong>quick attention-management
+      surface</strong> for CSPs.
+    </p>
+    <p style="margin-bottom: 0;">
+      The CSP should be able to look at the Bell and answer three questions almost instantly:<br>
+      <strong style="color: #D9008D;">What happened?</strong> &rarr;
+      <strong style="color: #D9008D;">What needs my attention?</strong> &rarr;
+      <strong style="color: #D9008D;">Where should I act?</strong>
+    </p>
+  </div>
+
+  <!-- ── UAF — Bell Updates ── -->
+  <h2 style="margin-top: 28px;">
+    <span class="material-icons-outlined">settings</span>
+    UAF — Bell Updates
+  </h2>
+
+  <div style="margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px;">
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 16px 18px; border-left: 3px solid #D9008D;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 6px;">1. Notification Expiry / TTL</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Allow teams to define an expiry duration for each notification — either in hours/days or through
+        an absolute expiry date. Once the TTL is reached, the notification should automatically expire/archive
+        so that outdated notifications don't clutter the Bell inbox.
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 16px 18px; border-left: 3px solid #D9008D;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 6px;">2. Notification Suppression / Deduplication</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Prevent repetitive notifications from flooding the Bell inbox. If an unread notification with the
+        same event type + group key already exists, UAF should either suppress the new notification or merge
+        it into the existing notification by updating the <code style="background:rgba(255,255,255,0.15); padding:1px 6px; border-radius:4px; font-size:12px;">groupedCount</code>.
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 16px 18px; border-left: 3px solid #D9008D;">
+      <div style="font-size: 13px; font-weight: 700; color: #D9008D; margin-bottom: 6px;">3. Notification Icon Selection</div>
+      <div style="font-size: 13px; color: rgba(250,249,252,0.85); line-height: 1.6;">
+        Allow teams to select an icon from a predefined icon library while creating/configuring a notification.
+        The selected icon will be displayed alongside the notification to help CSPs quickly identify its
+        category — for example, money, router, task/action, communication, etc.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Before / After comparison ── -->
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- NOTIFICATION DISPLAY & RETENTION LOGIC                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="logic-section">
+  <h2>
+    <span class="material-icons-outlined">data_object</span>
+    Notification Display & Retention Logic
+  </h2>
+
+  <!-- ── 1. Event Lifecycle ── -->
+  <h3>
+    <span class="material-icons-outlined">timeline</span>
+    1. Event Lifecycle (<code>event_deadline</code>)
+  </h3>
+  <p>
+    Not all notifications age the same way. A deduction warning for "16 अक्टूबर" loses all relevance
+    after October 16, while a policy update remains useful for weeks. To handle this, each notification
+    can carry an optional <code>event_deadline</code> field.
+  </p>
+  <ul>
+    <li>
+      <span class="lc-badge lc-active">ACTIVE</span>
+      <code>event_deadline</code> is in the future — the event hasn't happened yet.
+      E.g. "16 अक्टूबर तक नेट-बॉक्स वापस करें" before Oct 16.
+    </li>
+    <li>
+      <span class="lc-badge lc-expired">EXPIRED</span>
+      <code>event_deadline</code> has passed — the event already happened, the notification
+      is no longer actionable. E.g. the same deduction warning after Oct 16.
+    </li>
+    <li>
+      <span class="lc-badge lc-timeless">TIMELESS</span>
+      No <code>event_deadline</code> — general info with no hard expiry.
+      E.g. "नई पॉलिसी अपडेट", "₹150 कमीशन जमा हुआ".
+    </li>
+  </ul>
+
+  <!-- ── 2. Visibility Matrix ── -->
+  <h3>
+    <span class="material-icons-outlined">grid_on</span>
+    2. Visibility Matrix (Read-State &times; Event-Lifecycle)
+  </h3>
+  <p>
+    Where a notification appears is decided by two axes: whether the CSP has seen it (read/unread)
+    and whether the underlying event is still relevant (active/expired/timeless).
+  </p>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th><span class="lc-badge lc-active">ACTIVE</span> event_deadline in future</th>
+        <th><span class="lc-badge lc-expired">EXPIRED</span> event_deadline passed</th>
+        <th><span class="lc-badge lc-timeless">TIMELESS</span> no deadline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight: 700; color: #161021;">Unread</td>
+        <td>
+          <span class="cell-label">Initial load — always visible</span>
+          <span class="cell-desc">CSP hasn't seen it, event is upcoming. Highest priority. Shows with unread dot + bold title.</span>
+        </td>
+        <td>
+          <span class="cell-label">Initial load — visible with "समय समाप्त" tag</span>
+          <span class="cell-desc">CSP hasn't seen it, but the event already happened. Still shows so CSP knows what occurred. Tagged as expired.</span>
+        </td>
+        <td>
+          <span class="cell-label">Initial load — visible up to 30 days</span>
+          <span class="cell-desc">General unread notification. Stays visible on the initial screen up to 30 days from creation.</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: 700; color: #161021;">Read</td>
+        <td>
+          <span class="cell-label">Initial load — visible</span>
+          <span class="cell-desc">CSP has seen it, event is still upcoming. Stays on initial screen as a reminder until the deadline passes.</span>
+        </td>
+        <td>
+          <span class="cell-label">Show More only — dimmed + "समय समाप्त" tag</span>
+          <span class="cell-desc">CSP saw it, event has passed. Moves to the "show more" archive. No longer clutters the initial view. Retained for 30 days.</span>
+        </td>
+        <td>
+          <span class="cell-label">Show More after 7 days — visible up to 30 days</span>
+          <span class="cell-desc">Recent read notifications (< 7 days) stay on initial load. Older than 7 days → moves to "show more" archive. Purged at 30 days.</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── 3. Display Flow ── -->
+  <h3>
+    <span class="material-icons-outlined">account_tree</span>
+    3. Display Flow
+  </h3>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">App opens Bell</div>
+      <div class="step-desc">GET /bell returns all notifications. Server applies 30-day retention — nothing older than 30 days is returned.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">Initial Load</div>
+      <div class="step-desc">Client shows: all unread + read ACTIVE + recent read TIMELESS (&lt; 7 days). Everything else held back.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Show More</div>
+      <div class="step-desc">CSP taps "पुरानी सूचनाएं". Loads remaining notifications (read EXPIRED, older read TIMELESS) up to 30 days.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">Step 4</div>
+      <div class="step-title">30-Day Purge</div>
+      <div class="step-desc">Server auto-deletes notifications older than 30 days. No client action needed.</div>
+    </div>
+  </div>
+
+  <!-- ── 4. Initial Load Rules ── -->
+  <h3>
+    <span class="material-icons-outlined">visibility</span>
+    4. Initial Load — What Shows on Screen Open
+  </h3>
+  <ul>
+    <li><strong>All unread notifications</strong> regardless of lifecycle — the CSP hasn't seen them yet</li>
+    <li><strong>Unread + EXPIRED</strong> notifications get a <span class="lc-badge lc-expired">समय समाप्त</span> tag so the CSP knows the event passed, but still sees what happened</li>
+    <li><strong>Read + ACTIVE</strong> notifications stay visible — the event is still upcoming, acts as a reminder</li>
+    <li><strong>Read + TIMELESS &lt; 7 days old</strong> — recent enough to be contextually useful</li>
+    <li><strong>No number cap</strong> on initial load — server controls what's returned, client shows all qualifying items</li>
+  </ul>
+
+  <!-- ── 5. Show More Rules ── -->
+  <h3>
+    <span class="material-icons-outlined">expand_more</span>
+    5. Show More (30-Day Archive)
+  </h3>
+  <ul>
+    <li><strong>Read + EXPIRED</strong> — event passed, CSP has seen it. Not on initial load but kept for reference</li>
+    <li><strong>Read + TIMELESS &gt; 7 days old</strong> — too old for the initial screen but within the 30-day window</li>
+    <li>Button label: <code>पुरानी सूचनाएं</code> (no duration shown in CTA)</li>
+    <li>Loads all remaining notifications in one batch (no pagination within "show more")</li>
+    <li>Expired notifications shown with <span class="lc-badge lc-expired">समय समाप्त</span> tag and dimmed opacity</li>
+  </ul>
+
+  <!-- ── 6. 30-Day Hard Purge ── -->
+  <h3>
+    <span class="material-icons-outlined">delete_sweep</span>
+    6. 30-Day Hard Purge
+  </h3>
+  <ul>
+    <li><strong>All notifications</strong> (read, unread, active, expired, timeless) older than 30 days are permanently deleted from the server</li>
+    <li>No client-side deletion — the server simply stops returning them</li>
+    <li>Footer label shows: <code>पुरानी सूचनाएं स्वचालित रूप से हटा दी जाती हैं</code></li>
+    <li>The 30-day clock starts from <code>createdAt</code>, not from <code>event_deadline</code></li>
+  </ul>
+
+  <!-- ── 7. Filter Chip Behavior ── -->
+  <h3>
+    <span class="material-icons-outlined">filter_alt</span>
+    7. Filter Chips Behavior
+  </h3>
+  <ul>
+    <li><strong>सभी (All)</strong> — shows all notifications in current view (initial + show more if loaded)</li>
+    <li><strong>नहीं देखें गए (Unseen)</strong> — shows only unread notifications. "Show more" button hidden (archive is mostly read items)</li>
+    <li><strong>देखें गए (Seen)</strong> — shows only read notifications from current view</li>
+    <li>Counts update in real-time as CSP taps cards (mark-as-read)</li>
+    <li>Empty state shown when a filter has zero matching items</li>
+  </ul>
+
+  <!-- ── 8. Mark-as-Read Behavior ── -->
+  <h3>
+    <span class="material-icons-outlined">touch_app</span>
+    8. Mark-as-Read on Tap
+  </h3>
+  <ul>
+    <li>Tapping a notification card marks it read <strong>optimistically</strong> (instant UI update)</li>
+    <li>Fire-and-forget <code>POST /bell/{id}/read</code> — no loading state, no blocking</li>
+    <li>Visual changes on mark-read: unread dot removed, title weight drops to 500, icon tint dims to <code>textHint</code></li>
+    <li>If on "Unseen" filter: card fades out after 300ms (moved to "Seen" list)</li>
+    <li>Header bell badge count decrements by 1</li>
+    <li>Read + EXPIRED notifications that were on initial load (because they were unread) stay in place — they don't jump to "show more" mid-session</li>
+  </ul>
+
+  <!-- ── 9. Summary Decision Table ── -->
+  <h3>
+    <span class="material-icons-outlined">checklist</span>
+    9. Quick Decision Summary
+  </h3>
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Decision</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>How many notifications on initial load?</td>
+        <td>No fixed cap. Server returns all qualifying items (unread + recent read). Client renders all.</td>
+      </tr>
+      <tr>
+        <td>How long are notifications kept?</td>
+        <td>30 days from <code>createdAt</code>. Server purges after 30 days.</td>
+      </tr>
+      <tr>
+        <td>When does "show more" appear?</td>
+        <td>When there are older notifications (read EXPIRED or read TIMELESS > 7 days) not shown on initial load.</td>
+      </tr>
+      <tr>
+        <td>Do expired unread notifications disappear?</td>
+        <td>No. They stay on initial load with a "समय समाप्त" tag so the CSP sees what happened.</td>
+      </tr>
+      <tr>
+        <td>Do read ACTIVE notifications move to "show more"?</td>
+        <td>No. They stay on initial load as reminders until the event deadline passes.</td>
+      </tr>
+      <tr>
+        <td>Is "show more" paginated?</td>
+        <td>No. Single batch load of all remaining notifications within 30 days.</td>
+      </tr>
+      <tr>
+        <td>Does marking read move the card during the session?</td>
+        <td>No. Cards stay in place during the session. The sorting recalculates on next Bell open.</td>
+      </tr>
+      <tr>
+        <td>Who owns TTL / expiry logic?</td>
+        <td>Server (UAF). Client only reads <code>event_deadline</code> to show the "समय समाप्त" tag.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- OBJECTIVE (continued) — Before / After comparison                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="objective-banner">
+  <div class="comparison">
+    <div class="compare-col current">
+      <h3>Current Implementation (Code)</h3>
+      <ul>
+        <li>Flat list — no visual category per notification</li>
+        <li>No leading icon — only unread dot + text</li>
+        <li>No filter chips — all items shown always</li>
+        <li>Read/unread distinguished only by dot + bg tint</li>
+        <li>sourceClass exists in model but unused in UI</li>
+        <li>Every notification row looks identical</li>
+      </ul>
+    </div>
+    <div class="compare-col enhanced">
+      <h3>Enhanced Design (Target)</h3>
+      <ul>
+        <li>Leading icon per sourceClass in 40dp rounded container</li>
+        <li>Filter chips — All / Unseen / Seen with live counts</li>
+        <li>sourceClass drives icon selection (6-way mapping)</li>
+        <li>Monochrome icon tint from DS tokens (no new colors)</li>
+        <li>Stronger unread emphasis: dot + bold title + icon tint</li>
+        <li>Read items: dimmed icon tint + lighter title weight</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── Key Gaps to Close ── -->
+<div class="gaps-grid">
+  <div class="gap-card">
+    <div class="gap-label">Gap 1</div>
+    <div class="gap-title">No Visual Category</div>
+    <div class="gap-desc">
+      <code>sourceClass</code> (TASK_EVENT, SYSTEM_STATE, PROGRAM_STATE, etc.) is in the data model
+      but the UI ignores it. Every notification renders as identical text rows.
+    </div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-label">Gap 2</div>
+    <div class="gap-title">No Leading Icon</div>
+    <div class="gap-desc">
+      Without icons, the CSP must read Hindi text to identify notification type.
+      A router icon or chat bubble communicates the category instantly.
+    </div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-label">Gap 3</div>
+    <div class="gap-title">No Filtering</div>
+    <div class="gap-desc">
+      No way to view only unread or only seen items. CSPs with 20+ notifications must scroll
+      through everything to find what they haven't acted on.
+    </div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-label">Gap 4</div>
+    <div class="gap-title">Weak Read/Unread Contrast</div>
+    <div class="gap-desc">
+      The only visual signal is a small 8dp dot and a background tint shift.
+      Adding icon emphasis and title weight creates a stronger scannable hierarchy.
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- BEFORE / AFTER PHONE PREVIEW                                           -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-title">
+  <span class="material-icons-outlined">compare</span>
+  Before vs. After
+</div>
+
+<div class="preview-row">
+
+<!-- ──────── BEFORE phone ──────── -->
+<div class="preview-col">
+  <div class="preview-label before">Current Implementation</div>
+  <div class="phone-frame">
+    <div class="phone-header">
+      <span class="material-icons-outlined">arrow_back</span>
+      <span class="title">सूचनाएं</span>
+    </div>
+    <div class="phone-body">
+      <!-- No filter chips, no icons — just dot + text -->
+      <div class="notif-card no-icon">
+        <div class="notif-content">
+          <div class="notif-title-row">
+            <div class="unread-dot"></div>
+            <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
+          </div>
+          <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
+          <div class="notif-time">2 मिनट पहले</div>
+        </div>
+      </div>
+
+      <div class="notif-card no-icon">
+        <div class="notif-content">
+          <div class="notif-title-row">
+            <div class="unread-dot"></div>
+            <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
+          </div>
+          <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
+          <div class="notif-time">2 मिनट पहले</div>
+        </div>
+      </div>
+
+      <div class="notif-card no-icon">
+        <div class="notif-content">
+          <div class="notif-title-row">
+            <div class="unread-dot"></div>
+            <div class="notif-title">16 अक्टूबर तक नेट-बॉक्स वापस करें</div>
+          </div>
+          <div class="notif-sub">15 नेट-बॉक्स पर कैरी फी कटेगी</div>
+          <div class="notif-time">10 मिनट पहले</div>
+        </div>
+      </div>
+
+      <div class="notif-card no-icon read-card">
+        <div class="notif-content">
+          <div class="notif-title-row">
+            <div class="notif-title">3 नेट-बॉक्स गुम पाया गया</div>
+          </div>
+          <div class="notif-sub">₹300 वॉलेट से काटे गयें</div>
+          <div class="notif-time">12 दिन पहले</div>
+        </div>
+      </div>
+
+      <div class="notif-card no-icon read-card">
+        <div class="notif-content">
+          <div class="notif-title-row">
+            <div class="notif-title">ध्यान दें, क्वालिटी 2 साइकिल से ख़राब चल रही है</div>
+          </div>
+          <div class="notif-sub">नए काम पाते रहने के लिए क्वालिटी ठीक करें</div>
+          <div class="notif-time">कल</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──────── AFTER phone — Interactive Prototype ──────── -->
+<div class="preview-col">
+  <div class="preview-label after">Enhanced Design — Interactive Prototype</div>
+  <div class="phone-frame" id="proto-phone">
+    <div class="phone-header">
+      <span class="material-icons-outlined">arrow_back</span>
+      <span class="title">सूचनाएं</span>
+    </div>
+    <div class="phone-body" id="proto-body" style="max-height: 580px; overflow-y: auto;">
+      <!-- Filter chips — clickable -->
+      <div class="filter-chips">
+        <div class="chip active" data-filter="all" onclick="filterNotifs('all')">सभी <span id="count-all">7</span></div>
+        <div class="chip" data-filter="unread" onclick="filterNotifs('unread')">नहीं देखें गए <span id="count-unread">3</span></div>
+        <div class="chip" data-filter="read" onclick="filterNotifs('read')">देखें गए <span id="count-read">4</span></div>
+      </div>
+
+      <div id="notif-list">
+        <!-- Card 1: TASK_EVENT — unread, ACTIVE -->
+        <div class="notif-card proto-card" data-read="false">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="unread-dot"></div>
+              <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
+            </div>
+            <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
+            <div class="notif-time">2 मिनट पहले</div>
+          </div>
+        </div>
+
+        <!-- Card 2: TASK_EVENT — unread, ACTIVE -->
+        <div class="notif-card proto-card" data-read="false">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="unread-dot"></div>
+              <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
+            </div>
+            <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
+            <div class="notif-time">2 मिनट पहले</div>
+          </div>
+        </div>
+
+        <!-- Card 3: TASK_EVENT — unread, ACTIVE -->
+        <div class="notif-card proto-card" data-read="false">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="unread-dot"></div>
+              <div class="notif-title">16 अक्टूबर तक नेट-बॉक्स वापस करें</div>
+            </div>
+            <div class="notif-sub">15 नेट-बॉक्स पर कैरी फी कटेगी</div>
+            <div class="notif-time">10 मिनट पहले</div>
+          </div>
+        </div>
+
+        <!-- Card 4: SYSTEM_STATE — read -->
+        <div class="notif-card read-card proto-card" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">inventory_2</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">3 नेट-बॉक्स गुम पाया गया</div>
+            </div>
+            <div class="notif-sub">₹300 वॉलेट से काटे गयें</div>
+            <div class="notif-time">12 दिन पहले</div>
+          </div>
+        </div>
+
+        <!-- Card 5: PROGRAM_STATE — read -->
+        <div class="notif-card read-card proto-card" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">verified_user</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">ध्यान दें, क्वालिटी 2 साइकिल से ख़राब चल रही है</div>
+            </div>
+            <div class="notif-sub">नए काम पाते रहने के लिए क्वालिटी ठीक करें</div>
+            <div class="notif-time">कल</div>
+          </div>
+        </div>
+
+        <!-- Card 6: REFERENCE_CHANGE — read -->
+        <div class="notif-card read-card proto-card" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">description</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">नई पॉलिसी अपडेट</div>
+            </div>
+            <div class="notif-sub">कमीशन रेट कार्ड में बदलाव किया गया है</div>
+            <div class="notif-time">3 दिन पहले</div>
+          </div>
+        </div>
+
+        <!-- Card 7: TASK_EVENT — read -->
+        <div class="notif-card read-card proto-card" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">इंस्टॉलेशन असाइन हुआ</div>
+            </div>
+            <div class="notif-sub">ग्राहक रमेश शर्मा के लिए नया इंस्टॉलेशन</div>
+            <div class="notif-time">5 दिन पहले</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Show More button -->
+      <div id="show-more-btn" class="show-more-wrap" onclick="loadOlderNotifs()">
+        <div class="show-more-btn">
+          <span class="material-icons-outlined" style="font-size: 18px;">expand_more</span>
+          पुरानी सूचनाएं
+        </div>
+      </div>
+
+      <!-- Older notifications — hidden initially -->
+      <div id="older-notifs" style="display: none;">
+        <div class="older-divider">
+          <span>पुरानी सूचनाएं</span>
+        </div>
+
+        <div class="notif-card read-card proto-card proto-older" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">chat_bubble_outline</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">विओम टीम से संदेश</div>
+            </div>
+            <div class="notif-sub">ग्राहक शिकायत #3892 पर अपडेट</div>
+            <div class="notif-time">8 दिन पहले</div>
+          </div>
+        </div>
+
+        <div class="notif-card read-card proto-card proto-older" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">verified_user</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">SLA स्कोर अपडेट</div>
+            </div>
+            <div class="notif-sub">आपका SLA स्कोर 85% से 91% हो गया</div>
+            <div class="notif-time">10 दिन पहले</div>
+          </div>
+        </div>
+
+        <!-- EXPIRED notification — event_deadline passed -->
+        <div class="notif-card read-card proto-card proto-older expired-card" data-read="true" data-expired="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">5 अक्टूबर तक नेट-बॉक्स वापस करें</div>
+              <span class="expired-tag">समय समाप्त</span>
+            </div>
+            <div class="notif-sub">कैरी फी कट चुकी है</div>
+            <div class="notif-time">15 दिन पहले</div>
+          </div>
+        </div>
+
+        <div class="notif-card read-card proto-card proto-older" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">notifications</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">₹150 कमीशन जमा हुआ</div>
+            </div>
+            <div class="notif-sub">इंस्टॉलेशन कमीशन वॉलेट में जमा</div>
+            <div class="notif-time">18 दिन पहले</div>
+          </div>
+        </div>
+
+        <div class="notif-card read-card proto-card proto-older" data-read="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">description</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">प्लान रेट अपडेट</div>
+            </div>
+            <div class="notif-sub">2 प्लान्स में कमीशन स्ट्रक्चर बदला</div>
+            <div class="notif-time">22 दिन पहले</div>
+          </div>
+        </div>
+
+        <!-- EXPIRED notification — old deadline -->
+        <div class="notif-card read-card proto-card proto-older expired-card" data-read="true" data-expired="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">inventory_2</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">इन्वेंटरी ऑडिट लंबित</div>
+              <span class="expired-tag">समय समाप्त</span>
+            </div>
+            <div class="notif-sub">25 सितंबर तक ऑडिट करना था</div>
+            <div class="notif-time">26 दिन पहले</div>
+          </div>
+        </div>
+
+        <div class="proto-end-label">
+          <span class="material-icons-outlined" style="font-size: 16px; vertical-align: middle;">schedule</span>
+          पुरानी सूचनाएं स्वचालित रूप से हटा दी जाती हैं
+        </div>
+      </div>
+
+      <!-- Empty state for filters -->
+      <div id="empty-filter" style="display: none;" class="proto-empty">
+        <span class="material-icons-outlined" style="font-size: 40px; color: #A7A1B2;">notifications_none</span>
+        <div id="empty-filter-text" style="font-family: 'Noto Sans Devanagari', sans-serif; font-size: 14px; font-weight: 600; color: #5C5570; margin-top: 8px;"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="proto-hint">
+    <span class="material-icons-outlined" style="font-size: 14px;">touch_app</span>
+    Tap chips to filter &bull; Tap cards to mark read &bull; "Show more" loads 30-day archive
+  </div>
+
+
+</div>
+
+</div>
+
+<!-- Figma button — aligned with the two phones (360 + 40 + 360 = 760px) -->
+<div style="display: flex; justify-content: center; margin-top: 24px;">
+  <div style="width: 760px;">
+    <a href="https://www.figma.com/design/W2Z3B5xfFO3UibJSzkyHn2/PA---Dev--%3E-January-2026-Onwards?node-id=17701-7801&t=uAI7f5kBXivZIYa4-4" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #D9008D; color: #fff; font-size: 15px; font-weight: 600; padding: 16px 28px; border-radius: 12px; text-decoration: none; width: 100%; transition: background 0.15s;">
+      <span class="material-icons-outlined" style="font-size: 20px;">open_in_new</span>
+      Figma Design
+    </a>
+    <div style="font-size: 12px; color: #A7A1B2; margin-top: 8px; text-align: center;">Use Figma design for exact design reference</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- PRIMARY ICON MAPPING                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-title">
+  <span class="material-icons-outlined">category</span>
+  Primary Mapping (sourceClass &rarr; Icon)
+</div>
+<p style="font-size: 13px; color: #5C5570; margin-bottom: 20px;">
+  Monochrome icons using DS tokens only — <code>textSecondary</code> tint for unread,
+  <code>textHint</code> tint for read. Container: 40dp rounded square, <code>bgScreen</code> fill.
+  No new colors introduced.
+</p>
+
+<div class="icon-grid">
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">router</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">TASK_EVENT <span class="badge-rec">RECOMMENDED</span></div>
+      <div class="icon-material">Icons.Outlined.Router</div>
+      <div class="icon-desc">Install, restore, pickup, recharge — the core CSP work tied to netbox devices.</div>
+      <div class="icon-hindi">5 नेट-बॉक्स पिकअप फेल &middot; 16 अक्टूबर तक नेट-बॉक्स वापस करें</div>
+    </div>
+  </div>
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">inventory_2</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">SYSTEM_STATE <span class="badge-rec">RECOMMENDED</span></div>
+      <div class="icon-material">Icons.Outlined.Inventory2</div>
+      <div class="icon-desc">Netbox missing, offline, found, inventory count changes — device state alerts.</div>
+      <div class="icon-hindi">3 नेट-बॉक्स गुम पाया गया &middot; ₹300 वॉलेट से काटे गयें</div>
+    </div>
+  </div>
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">chat_bubble_outline</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">HUMAN_CONVERSATION <span class="badge-rec">RECOMMENDED</span></div>
+      <div class="icon-material">Icons.Outlined.ChatBubbleOutline</div>
+      <div class="icon-desc">Messages from Wiom ops, field team replies, support threads.</div>
+      <div class="icon-hindi">विओम टीम से संदेश &middot; ग्राहक ने शिकायत दर्ज की</div>
+    </div>
+  </div>
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">verified_user</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">PROGRAM_STATE <span class="badge-rec">RECOMMENDED</span></div>
+      <div class="icon-material">Icons.Outlined.VerifiedUser</div>
+      <div class="icon-desc">Quality score, SLA updates, earnings posted, exposure changes, bonus alerts.</div>
+      <div class="icon-hindi">ध्यान दें, क्वालिटी 2 साइकिल से ख़राब चल रही है</div>
+    </div>
+  </div>
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">description</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">REFERENCE_CHANGE <span class="badge-rec">RECOMMENDED</span></div>
+      <div class="icon-material">Icons.Outlined.Description</div>
+      <div class="icon-desc">Policy updates, plan changes, T&amp;C revisions, rate card modifications.</div>
+      <div class="icon-hindi">नई पॉलिसी अपडेट &middot; रेट कार्ड में बदलाव</div>
+    </div>
+  </div>
+
+  <div class="icon-card recommended">
+    <div class="icon-box">
+      <span class="material-icons-outlined">notifications</span>
+    </div>
+    <div class="icon-info">
+      <div class="icon-name">UNKNOWN <span class="badge-rec">FALLBACK</span></div>
+      <div class="icon-material">Icons.Outlined.Notifications</div>
+      <div class="icon-desc">Unrecognized wire value — safe generic fallback. The bell icon matches the screen context.</div>
+      <div class="icon-hindi">अज्ञात सूचना प्रकार</div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- ALTERNATIVE ICONS                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-title">
+  <span class="material-icons-outlined">swap_horiz</span>
+  Alternative Icons per sourceClass
+</div>
+<p style="font-size: 13px; color: #5C5570; margin-bottom: 20px;">
+  Other reasonable choices if the recommended icon doesn't feel right. Pick one per category.
+</p>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">TASK_EVENT alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">router</span><div class="label">router</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">assignment</span><div class="label">assignment</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">task_alt</span><div class="label">task_alt</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">settings_remote</span><div class="label">settings_remote</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">build_circle</span><div class="label">build_circle</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">handyman</span><div class="label">handyman</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">engineering</span><div class="label">engineering</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">wifi</span><div class="label">wifi</div></div>
+</div>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">SYSTEM_STATE alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">inventory_2</span><div class="label">inventory_2</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">device_hub</span><div class="label">device_hub</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">report_problem</span><div class="label">report_problem</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">error_outline</span><div class="label">error_outline</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">warning_amber</span><div class="label">warning_amber</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">search_off</span><div class="label">search_off</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">find_replace</span><div class="label">find_replace</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">location_off</span><div class="label">location_off</div></div>
+</div>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">HUMAN_CONVERSATION alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">chat_bubble_outline</span><div class="label">chat_bubble_outline</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">forum</span><div class="label">forum</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">question_answer</span><div class="label">question_answer</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">support_agent</span><div class="label">support_agent</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">mark_chat_unread</span><div class="label">mark_chat_unread</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">sms</span><div class="label">sms</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">contact_support</span><div class="label">contact_support</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">person</span><div class="label">person</div></div>
+</div>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">PROGRAM_STATE alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">verified_user</span><div class="label">verified_user</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">insights</span><div class="label">insights</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">trending_up</span><div class="label">trending_up</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">speed</span><div class="label">speed</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">monitoring</span><div class="label">monitoring</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">bar_chart</span><div class="label">bar_chart</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">account_balance_wallet</span><div class="label">account_balance_wallet</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">stars</span><div class="label">stars</div></div>
+</div>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">REFERENCE_CHANGE alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">description</span><div class="label">description</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">article</span><div class="label">article</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">policy</span><div class="label">policy</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">gavel</span><div class="label">gavel</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">auto_stories</span><div class="label">auto_stories</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">info</span><div class="label">info</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">new_releases</span><div class="label">new_releases</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">campaign</span><div class="label">campaign</div></div>
+</div>
+
+<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #4A1535;">UNKNOWN (fallback) alternatives</h3>
+<div class="alt-grid">
+  <div class="alt-item"><span class="material-icons-outlined">notifications</span><div class="label">notifications</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">notifications_none</span><div class="label">notifications_none</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">circle_notifications</span><div class="label">circle_notifications</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">help_outline</span><div class="label">help_outline</div></div>
+  <div class="alt-item"><span class="material-icons-outlined">info</span><div class="label">info</div></div>
+</div>
+
+<script>
+  // ── Interactive Prototype Logic ──
+
+  let currentFilter = 'all';
+  let olderLoaded = false;
+
+  function filterNotifs(filter) {
+    currentFilter = filter;
+
+    // Update chip active state
+    document.querySelectorAll('.filter-chips .chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.filter === filter);
+    });
+
+    const cards = document.querySelectorAll('#notif-list .proto-card');
+    const olderCards = document.querySelectorAll('#older-notifs .proto-older');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const isRead = card.dataset.read === 'true';
+      let show = false;
+      if (filter === 'all') show = true;
+      else if (filter === 'unread') show = !isRead;
+      else if (filter === 'read') show = isRead;
+
+      card.classList.toggle('hidden-card', !show);
+      if (show) visibleCount++;
+    });
+
+    // Handle older cards visibility with filter
+    olderCards.forEach(card => {
+      const isRead = card.dataset.read === 'true';
+      let show = false;
+      if (filter === 'all') show = true;
+      else if (filter === 'unread') show = !isRead;
+      else if (filter === 'read') show = isRead;
+      card.classList.toggle('hidden-card', !show);
+      if (show && olderLoaded) visibleCount++;
+    });
+
+    // Show/hide "show more" button
+    const showMoreBtn = document.getElementById('show-more-btn');
+    if (filter === 'unread') {
+      showMoreBtn.style.display = 'none';
+    } else if (!olderLoaded) {
+      showMoreBtn.style.display = 'block';
+    }
+
+    // Show/hide older divider
+    if (olderLoaded) {
+      const olderSection = document.getElementById('older-notifs');
+      const hasVisibleOlder = Array.from(olderCards).some(c => !c.classList.contains('hidden-card'));
+      olderSection.style.display = hasVisibleOlder ? 'block' : 'none';
+    }
+
+    // Empty state
+    const emptyEl = document.getElementById('empty-filter');
+    const emptyText = document.getElementById('empty-filter-text');
+    if (visibleCount === 0) {
+      emptyEl.style.display = 'block';
+      if (filter === 'unread') emptyText.textContent = 'सभी सूचनाएं देख ली गई हैं';
+      else if (filter === 'read') emptyText.textContent = 'कोई देखी गई सूचना नहीं';
+      else emptyText.textContent = 'कोई सूचना नहीं';
+    } else {
+      emptyEl.style.display = 'none';
+    }
+  }
+
+  function loadOlderNotifs() {
+    olderLoaded = true;
+
+    // Hide the button
+    document.getElementById('show-more-btn').style.display = 'none';
+
+    // Show older notifications
+    const olderSection = document.getElementById('older-notifs');
+    olderSection.style.display = 'block';
+
+    // Update counts
+    updateCounts();
+
+    // Re-apply current filter
+    filterNotifs(currentFilter);
+
+    // Scroll to older section
+    olderSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function updateCounts() {
+    const mainCards = document.querySelectorAll('#notif-list .proto-card');
+    const olderCards = olderLoaded ? document.querySelectorAll('#older-notifs .proto-older') : [];
+    const allCards = [...mainCards, ...olderCards];
+
+    let total = allCards.length;
+    let unread = allCards.filter(c => c.dataset.read === 'false').length;
+    let read = allCards.filter(c => c.dataset.read === 'true').length;
+
+    document.getElementById('count-all').textContent = total;
+    document.getElementById('count-unread').textContent = unread;
+    document.getElementById('count-read').textContent = read;
+  }
+
+  // Card tap → simulate mark as read
+  document.querySelectorAll('.proto-card').forEach(card => {
+    card.addEventListener('click', function() {
+      if (this.dataset.read === 'false') {
+        this.dataset.read = 'true';
+        this.classList.add('read-card');
+
+        // Remove unread dot
+        const dot = this.querySelector('.unread-dot');
+        if (dot) dot.style.display = 'none';
+
+        // Dim the title
+        const title = this.querySelector('.notif-title');
+        if (title) {
+          title.style.fontWeight = '500';
+          title.style.color = '#3D3550';
+        }
+
+        // Dim the icon
+        const icon = this.querySelector('.notif-icon-wrap .material-icons-outlined');
+        if (icon) icon.style.color = '#A7A1B2';
+
+        // Update counts
+        updateCounts();
+
+        // If on "unread" filter, hide this card after a brief flash
+        if (currentFilter === 'unread') {
+          setTimeout(() => {
+            filterNotifs('unread');
+          }, 300);
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
