@@ -154,15 +154,15 @@
     font-weight: 600;
   }
 
-  /* ── Notification Card ── */
+  /* ── Notification Card — 328×84dp per Figma ── */
   .notif-card {
     background: #FFFFFF;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 8px;
+    border-radius: 12px;
+    padding: 14px 10px;
+    margin-bottom: 5px;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
   }
   .notif-card.read-card {
     background: #FFFFFF;
@@ -171,20 +171,19 @@
     padding-left: 16px;
   }
 
-  /* Icon container */
+  /* Icon container — 34dp rounded square per Figma */
   .notif-icon-wrap {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    border-radius: 10px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 8px;
     background: #F0EDF3;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2px;
   }
   .notif-icon-wrap .material-icons-outlined {
-    font-size: 20px;
+    font-size: 18px;
     color: #7B6F8E;
   }
   .notif-card.read-card .notif-icon-wrap .material-icons-outlined {
@@ -207,6 +206,7 @@
     border-radius: 50%;
     background: #D9008D;
     flex-shrink: 0;
+    align-self: center;
   }
   .notif-title {
     font-family: 'Noto Sans Devanagari', sans-serif;
@@ -1116,22 +1116,22 @@
       <span class="title">सूचनाएं</span>
     </div>
     <div class="phone-body" id="proto-body" style="max-height: 580px; overflow-y: auto;">
-      <!-- Filter chips — clickable -->
+      <!-- Filter chips — clickable (text matches Figma) -->
       <div class="filter-chips">
-        <div class="chip active" data-filter="all" onclick="filterNotifs('all')">सभी <span id="count-all">7</span></div>
-        <div class="chip" data-filter="unread" onclick="filterNotifs('unread')">नहीं देखें गए <span id="count-unread">3</span></div>
-        <div class="chip" data-filter="read" onclick="filterNotifs('read')">देखें गए <span id="count-read">4</span></div>
+        <div class="chip active" data-filter="all" onclick="filterNotifs('all')">सभी <span id="count-all">6</span></div>
+        <div class="chip" data-filter="unread" onclick="filterNotifs('unread')">नहीं देखे गए <span id="count-unread">3</span></div>
+        <div class="chip" data-filter="read" onclick="filterNotifs('read')">देखे गए <span id="count-read">3</span></div>
       </div>
 
       <div id="notif-list">
-        <!-- Card 1: TASK_EVENT — unread, ACTIVE -->
+        <!-- Card 1: Unread, ACTIVE — dot + icon + content -->
         <div class="notif-card proto-card" data-read="false">
+          <div class="unread-dot"></div>
           <div class="notif-icon-wrap">
             <span class="material-icons-outlined">router</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
-              <div class="unread-dot"></div>
               <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
             </div>
             <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
@@ -1139,40 +1139,40 @@
           </div>
         </div>
 
-        <!-- Card 2: TASK_EVENT — unread, ACTIVE -->
+        <!-- Card 2: Unread, ACTIVE — dot + icon + content -->
         <div class="notif-card proto-card" data-read="false">
+          <div class="unread-dot"></div>
           <div class="notif-icon-wrap">
             <span class="material-icons-outlined">router</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
-              <div class="unread-dot"></div>
-              <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
-            </div>
-            <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
-            <div class="notif-time">आज 10:28 PM</div>
-          </div>
-        </div>
-
-        <!-- Card 3: TASK_EVENT — unread, ACTIVE -->
-        <div class="notif-card proto-card" data-read="false">
-          <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">router</span>
-          </div>
-          <div class="notif-content">
-            <div class="notif-title-row">
-              <div class="unread-dot"></div>
               <div class="notif-title">16 अक्टूबर तक नेट-बॉक्स वापस करें</div>
             </div>
             <div class="notif-sub">15 नेट-बॉक्स पर कैरी फी कटेगी</div>
-            <div class="notif-time">आज 10:20 PM</div>
+            <div class="notif-time">आज 10:22 PM</div>
           </div>
         </div>
 
-        <!-- Card 4: SYSTEM_STATE — read -->
+        <!-- Card 3: Unread + EXPIRED — no dot, icon + content + expired tag -->
+        <div class="notif-card proto-card" data-read="false" data-expired="true">
+          <div class="notif-icon-wrap">
+            <span class="material-icons-outlined">router</span>
+          </div>
+          <div class="notif-content">
+            <div class="notif-title-row">
+              <div class="notif-title">5 नेट-बॉक्स पिकअप फेल</div>
+              <span class="expired-tag">समय समाप्त</span>
+            </div>
+            <div class="notif-sub">16 अक्टूबर को ₹1000 सिक्योरिटी डिपाज़िट से काटा जाएगा</div>
+            <div class="notif-time">आज 10:30 PM</div>
+          </div>
+        </div>
+
+        <!-- Card 4: Read — icon + content -->
         <div class="notif-card read-card proto-card" data-read="true">
           <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">inventory_2</span>
+            <span class="material-icons-outlined">router</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
@@ -1183,10 +1183,10 @@
           </div>
         </div>
 
-        <!-- Card 5: PROGRAM_STATE — read -->
+        <!-- Card 5: Read — icon + content -->
         <div class="notif-card read-card proto-card" data-read="true">
           <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">verified_user</span>
+            <span class="material-icons-outlined">info</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
@@ -1197,31 +1197,17 @@
           </div>
         </div>
 
-        <!-- Card 6: REFERENCE_CHANGE — read -->
+        <!-- Card 6: Read — icon + content -->
         <div class="notif-card read-card proto-card" data-read="true">
           <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">description</span>
+            <span class="material-icons-outlined">info</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
-              <div class="notif-title">नई पॉलिसी अपडेट</div>
+              <div class="notif-title">ध्यान दें, क्वालिटी 2 साइकिल से ख़राब चल रही है</div>
             </div>
-            <div class="notif-sub">कमीशन रेट कार्ड में बदलाव किया गया है</div>
-            <div class="notif-time">04/10/2026, 2:15 PM</div>
-          </div>
-        </div>
-
-        <!-- Card 7: TASK_EVENT — read -->
-        <div class="notif-card read-card proto-card" data-read="true">
-          <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">router</span>
-          </div>
-          <div class="notif-content">
-            <div class="notif-title-row">
-              <div class="notif-title">इंस्टॉलेशन असाइन हुआ</div>
-            </div>
-            <div class="notif-sub">ग्राहक रमेश शर्मा के लिए नया इंस्टॉलेशन</div>
-            <div class="notif-time">02/10/2026, 9:45 AM</div>
+            <div class="notif-sub">नए काम पाते रहने के लिए क्वालिटी ठीक करें</div>
+            <div class="notif-time">कल 11:20 PM</div>
           </div>
         </div>
       </div>
@@ -1255,7 +1241,7 @@
 
         <div class="notif-card read-card proto-card proto-older" data-read="true">
           <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">verified_user</span>
+            <span class="material-icons-outlined">info</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
@@ -1310,7 +1296,7 @@
         <!-- EXPIRED notification — old deadline -->
         <div class="notif-card read-card proto-card proto-older expired-card" data-read="true" data-expired="true">
           <div class="notif-icon-wrap">
-            <span class="material-icons-outlined">inventory_2</span>
+            <span class="material-icons-outlined">router</span>
           </div>
           <div class="notif-content">
             <div class="notif-title-row">
@@ -1877,7 +1863,7 @@
         this.dataset.read = 'true';
         this.classList.add('read-card');
 
-        // Remove unread dot
+        // Remove unread dot (now a direct child of card, not inside title-row)
         const dot = this.querySelector('.unread-dot');
         if (dot) dot.style.display = 'none';
 
