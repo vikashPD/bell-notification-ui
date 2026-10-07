@@ -828,10 +828,55 @@
     <li>Read + EXPIRED notifications that were on initial load (because they were unread) stay in place — they don't jump to "show more" mid-session</li>
   </ul>
 
-  <!-- ── 9. Summary Decision Table ── -->
+  <!-- ── 9. Timestamp Display Format ── -->
+  <h3>
+    <span class="material-icons-outlined">schedule</span>
+    9. Timestamp Display Format
+  </h3>
+  <p>
+    Notifications show absolute date &amp; time instead of relative strings ("2 मिनट पहले").
+    The client computes the display string from <code>createdAt</code> using the rules below.
+  </p>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Condition</th>
+        <th>Format</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Today</strong> — <code>createdAt</code> date == current date</td>
+        <td><code>आज h:mm a</code></td>
+        <td>आज 10:30 PM</td>
+      </tr>
+      <tr>
+        <td><strong>Yesterday</strong> — <code>createdAt</code> date == current date − 1</td>
+        <td><code>कल h:mm a</code></td>
+        <td>कल 11:20 PM</td>
+      </tr>
+      <tr>
+        <td><strong>Older</strong> — <code>createdAt</code> date &lt; current date − 1</td>
+        <td><code>dd/MM/yyyy, h:mm a</code></td>
+        <td>25/09/2026, 10:30 AM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li><strong>Locale:</strong> 12-hour clock with AM/PM — matches the CSP's typical phone locale (Hindi/English)</li>
+    <li><strong>Timezone:</strong> Device local timezone (<code>TimeZone.getDefault()</code>), not UTC</li>
+    <li><strong>Date comparison:</strong> Compare calendar dates (not 24-hour windows) — a notification at 11:55 PM shows "कल" after midnight, not after 24 hours</li>
+    <li><strong>No relative strings:</strong> Never show "2 मिनट पहले" or "12 दिन पहले" — absolute timestamps let CSPs judge recency without mental math</li>
+    <li><strong>Kotlin format pattern:</strong> <code>SimpleDateFormat("dd/MM/yyyy, h:mm a", Locale("en", "IN"))</code> for older dates</li>
+  </ul>
+
+  <!-- ── 10. Summary Decision Table ── -->
   <h3>
     <span class="material-icons-outlined">checklist</span>
-    9. Quick Decision Summary
+    10. Quick Decision Summary
   </h3>
   <table class="matrix-table">
     <thead>
