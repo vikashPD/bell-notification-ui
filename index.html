@@ -1444,6 +1444,244 @@
   <div class="alt-item"><span class="material-icons-outlined">info</span><div class="label">info</div></div>
 </div>
 
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- ANALYTICS EVENTS                                                       -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="logic-section">
+  <h2>
+    <span class="material-icons-outlined">analytics</span>
+    Analytics Events — MV Instrumentation (7 Events)
+  </h2>
+
+  <p style="font-size: 13px; color: #5C5570; margin-bottom: 20px; line-height: 1.7;">
+    Minimum viable event set to measure adoption, scanability, and feature usage. These 7 events cover the
+    full Bell session lifecycle — from open to close, every card tap, filter usage, show-more, and icon coverage gaps.
+    <strong>Total: 62 params across 7 events.</strong>
+  </p>
+
+  <!-- ── Quick Reference ── -->
+  <h3>
+    <span class="material-icons-outlined">list_alt</span>
+    Quick Reference
+  </h3>
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Event</th>
+        <th>Trigger</th>
+        <th>Params</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><code>bell_opened</code></td>
+        <td>Bell screen opens</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><code>bell_closed</code></td>
+        <td>Bell screen closes</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><code>bell_card_tapped</code></td>
+        <td>Any card tap (read or unread)</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><code>bell_card_marked_read</code></td>
+        <td>Unread card tapped (becomes read)</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><code>bell_filter_tapped</code></td>
+        <td>Filter chip tap</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><code>bell_show_more_tapped</code></td>
+        <td>Show more tap</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><code>bell_icon_fallback</code></td>
+        <td>Unknown sourceClass detected</td>
+        <td>5</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 1: bell_opened ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">door_front</span>
+    1. <code>bell_opened</code>
+  </h3>
+  <p>Fires when CSP opens the Bell screen.</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>total_count</code></td><td>Int</td><td>Yes</td><td><code>13</code></td><td>Total notifications returned by server</td></tr>
+      <tr><td><code>unread_count</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Unread notifications count</td></tr>
+      <tr><td><code>read_count</code></td><td>Int</td><td>Yes</td><td><code>10</code></td><td>Read notifications count</td></tr>
+      <tr><td><code>expired_count</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Notifications with expired event_deadline</td></tr>
+      <tr><td><code>initial_visible_count</code></td><td>Int</td><td>Yes</td><td><code>7</code></td><td>Cards shown on initial load (before show more)</td></tr>
+      <tr><td><code>show_more_available</code></td><td>Boolean</td><td>Yes</td><td><code>true</code></td><td>Whether older notifications exist behind show more</td></tr>
+      <tr><td><code>source</code></td><td>String</td><td>Yes</td><td><code>header_icon</code></td><td>How CSP reached Bell. Values: <code>header_icon</code>, <code>push_tap</code>, <code>deeplink</code></td></tr>
+      <tr><td><code>badge_count</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Bell badge number at time of open</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 2: bell_closed ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">logout</span>
+    2. <code>bell_closed</code>
+  </h3>
+  <p>Fires when CSP leaves the Bell screen.</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>duration_ms</code></td><td>Long</td><td>Yes</td><td><code>8500</code></td><td>Total time spent on Bell screen</td></tr>
+      <tr><td><code>cards_tapped</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Total cards tapped during session</td></tr>
+      <tr><td><code>cards_marked_read</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Cards that went from unread → read</td></tr>
+      <tr><td><code>filter_used</code></td><td>Boolean</td><td>Yes</td><td><code>true</code></td><td>Whether any filter chip was tapped</td></tr>
+      <tr><td><code>filters_tapped_count</code></td><td>Int</td><td>Yes</td><td><code>1</code></td><td>Number of filter chip taps</td></tr>
+      <tr><td><code>show_more_tapped</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether show more was tapped</td></tr>
+      <tr><td><code>unread_at_open</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Unread count when Bell opened</td></tr>
+      <tr><td><code>unread_at_close</code></td><td>Int</td><td>Yes</td><td><code>1</code></td><td>Unread count when Bell closed</td></tr>
+      <tr><td><code>scroll_depth_percent</code></td><td>Int</td><td>Yes</td><td><code>75</code></td><td>How far CSP scrolled (0–100)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 3: bell_card_tapped ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">touch_app</span>
+    3. <code>bell_card_tapped</code>
+  </h3>
+  <p>Fires on every card tap (read or unread). Primary signal for icon and layout effectiveness.</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>notification_id</code></td><td>String</td><td>Yes</td><td><code>notif_abc123</code></td><td>Unique notification ID</td></tr>
+      <tr><td><code>source_class</code></td><td>String</td><td>Yes</td><td><code>TASK_EVENT</code></td><td>sourceClass from server</td></tr>
+      <tr><td><code>icon_name</code></td><td>String</td><td>Yes</td><td><code>router</code></td><td>Material icon displayed on card</td></tr>
+      <tr><td><code>read_state</code></td><td>String</td><td>Yes</td><td><code>unread</code></td><td>Card state at time of tap. Values: <code>unread</code>, <code>read</code></td></tr>
+      <tr><td><code>is_expired</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether card has "समय समाप्त" tag</td></tr>
+      <tr><td><code>lifecycle_state</code></td><td>String</td><td>Yes</td><td><code>ACTIVE</code></td><td>Values: <code>ACTIVE</code>, <code>EXPIRED</code>, <code>TIMELESS</code></td></tr>
+      <tr><td><code>position</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>0-indexed position in visible list</td></tr>
+      <tr><td><code>section</code></td><td>String</td><td>Yes</td><td><code>initial</code></td><td>Values: <code>initial</code>, <code>show_more</code></td></tr>
+      <tr><td><code>active_filter</code></td><td>String</td><td>Yes</td><td><code>all</code></td><td>Active filter chip. Values: <code>all</code>, <code>unread</code>, <code>read</code></td></tr>
+      <tr><td><code>time_since_open_ms</code></td><td>Long</td><td>Yes</td><td><code>3200</code></td><td>Milliseconds since bell_opened</td></tr>
+      <tr><td><code>time_since_created_hrs</code></td><td>Int</td><td>Yes</td><td><code>48</code></td><td>Notification age in hours</td></tr>
+      <tr><td><code>has_grouped_count</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether notification is grouped</td></tr>
+      <tr><td><code>grouped_count</code></td><td>Int</td><td>No</td><td><code>3</code></td><td>Grouped count (only if has_grouped_count = true)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 4: bell_card_marked_read ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">mark_email_read</span>
+    4. <code>bell_card_marked_read</code>
+  </h3>
+  <p>Fires only when an unread card becomes read (subset of bell_card_tapped).</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>notification_id</code></td><td>String</td><td>Yes</td><td><code>notif_abc123</code></td><td>Unique notification ID</td></tr>
+      <tr><td><code>source_class</code></td><td>String</td><td>Yes</td><td><code>TASK_EVENT</code></td><td>sourceClass from server</td></tr>
+      <tr><td><code>icon_name</code></td><td>String</td><td>Yes</td><td><code>router</code></td><td>Material icon on card</td></tr>
+      <tr><td><code>is_expired</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether card has expired tag</td></tr>
+      <tr><td><code>lifecycle_state</code></td><td>String</td><td>Yes</td><td><code>ACTIVE</code></td><td>Values: <code>ACTIVE</code>, <code>EXPIRED</code>, <code>TIMELESS</code></td></tr>
+      <tr><td><code>position</code></td><td>Int</td><td>Yes</td><td><code>0</code></td><td>Position in visible list</td></tr>
+      <tr><td><code>section</code></td><td>String</td><td>Yes</td><td><code>initial</code></td><td>Values: <code>initial</code>, <code>show_more</code></td></tr>
+      <tr><td><code>active_filter</code></td><td>String</td><td>Yes</td><td><code>all</code></td><td>Active filter when marked read</td></tr>
+      <tr><td><code>time_since_open_ms</code></td><td>Long</td><td>Yes</td><td><code>3200</code></td><td>Milliseconds since bell_opened</td></tr>
+      <tr><td><code>unread_before</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Unread count before this tap</td></tr>
+      <tr><td><code>unread_after</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Unread count after this tap</td></tr>
+      <tr><td><code>badge_before</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Bell badge count before</td></tr>
+      <tr><td><code>badge_after</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Bell badge count after</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 5: bell_filter_tapped ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">filter_alt</span>
+    5. <code>bell_filter_tapped</code>
+  </h3>
+  <p>Fires when CSP taps a filter chip.</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>filter</code></td><td>String</td><td>Yes</td><td><code>unread</code></td><td>Filter chip tapped. Values: <code>all</code>, <code>unread</code>, <code>read</code></td></tr>
+      <tr><td><code>previous_filter</code></td><td>String</td><td>Yes</td><td><code>all</code></td><td>Previous active filter</td></tr>
+      <tr><td><code>visible_count</code></td><td>Int</td><td>Yes</td><td><code>3</code></td><td>Cards visible after filter applied</td></tr>
+      <tr><td><code>is_empty_state</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether filter shows empty state</td></tr>
+      <tr><td><code>time_since_open_ms</code></td><td>Long</td><td>Yes</td><td><code>2100</code></td><td>Milliseconds since bell_opened</td></tr>
+      <tr><td><code>show_more_loaded</code></td><td>Boolean</td><td>Yes</td><td><code>false</code></td><td>Whether show more was already loaded</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 6: bell_show_more_tapped ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">expand_more</span>
+    6. <code>bell_show_more_tapped</code>
+  </h3>
+  <p>Fires when CSP taps "पुरानी सूचनाएं".</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>older_count</code></td><td>Int</td><td>Yes</td><td><code>6</code></td><td>Number of older notifications loaded</td></tr>
+      <tr><td><code>older_expired_count</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>How many of them are expired</td></tr>
+      <tr><td><code>older_read_count</code></td><td>Int</td><td>Yes</td><td><code>6</code></td><td>How many of them are read</td></tr>
+      <tr><td><code>active_filter</code></td><td>String</td><td>Yes</td><td><code>all</code></td><td>Active filter when tapped</td></tr>
+      <tr><td><code>time_since_open_ms</code></td><td>Long</td><td>Yes</td><td><code>5400</code></td><td>Milliseconds since bell_opened</td></tr>
+      <tr><td><code>initial_visible_count</code></td><td>Int</td><td>Yes</td><td><code>7</code></td><td>Cards that were on initial load</td></tr>
+      <tr><td><code>cards_tapped_before</code></td><td>Int</td><td>Yes</td><td><code>2</code></td><td>Cards tapped before hitting show more</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Event 7: bell_icon_fallback ── -->
+  <h3 style="margin-top: 32px;">
+    <span class="material-icons-outlined">warning_amber</span>
+    7. <code>bell_icon_fallback</code>
+  </h3>
+  <p>Fires when a notification uses the UNKNOWN/fallback icon (unrecognized <code>sourceClass</code>).</p>
+  <table class="matrix-table">
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Required</th><th>Example</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>notification_id</code></td><td>String</td><td>Yes</td><td><code>notif_xyz789</code></td><td>Unique notification ID</td></tr>
+      <tr><td><code>raw_source_class</code></td><td>String</td><td>Yes</td><td><code>NEW_CATEGORY_V2</code></td><td>Raw sourceClass value from server</td></tr>
+      <tr><td><code>event_type</code></td><td>String</td><td>No</td><td><code>wallet_credit</code></td><td>Event type if available</td></tr>
+      <tr><td><code>title</code></td><td>String</td><td>Yes</td><td><code>नई सूचना</code></td><td>Notification title (for debugging)</td></tr>
+      <tr><td><code>trigger</code></td><td>String</td><td>Yes</td><td><code>bell_open</code></td><td>When fallback was detected. Values: <code>bell_open</code>, <code>push_received</code></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
 <script>
   // ── Interactive Prototype Logic ──
 
